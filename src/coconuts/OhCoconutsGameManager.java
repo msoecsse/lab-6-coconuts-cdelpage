@@ -70,6 +70,9 @@ public class OhCoconutsGameManager {
     public Crab getCrab() {
         return theCrab;
     }
+    public Beach getBeach(){
+        return theBeach;
+    }
 
     public void killCrab() {
         theCrab = null;
@@ -109,5 +112,17 @@ public class OhCoconutsGameManager {
 
     public boolean done() {
         return coconutsInFlight == 0 && gameTick >= MAX_TIME;
+    }
+
+    public void coconutCaught(Coconut c){
+        // TODO add sound and update scoreboard later
+        scheduleForDeletion(c);
+        gamePane.getChildren().remove(c.getImageView());
+    }
+
+    public void coconutHitCrab(Coconut c){
+        killCrab();
+        scheduleForDeletion(c);
+        gamePane.getChildren().remove(c.getImageView());
     }
 }

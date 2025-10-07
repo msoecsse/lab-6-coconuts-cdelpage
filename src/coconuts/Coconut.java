@@ -15,5 +15,19 @@ public class Coconut extends HittableIslandObject {
     @Override
     public void step() {
         y += 5;
+        display();
+        Beach beach = containingGame.getBeach();
+        if(beach != null && this.isTouching(beach)){
+            containingGame.coconutCaught(this);
+        }
+        Crab crab = containingGame.getCrab();
+        if(crab != null && this.isTouching(crab)){
+            containingGame.coconutHitCrab(this);
+        }
+
+    }
+    @Override
+    public boolean isFalling(){
+        return true;
     }
 }
