@@ -8,7 +8,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 // This class manages the game, including tracking all island objects and detecting when they hit
-public class OhCoconutsGameManager {
+public class OhCoconutsGameManager implements Subject {
+    private final Collection<Observer> observers = new LinkedList<>();
     private final Collection<IslandObject> allObjects = new LinkedList<>();
     private final Collection<HittableIslandObject> hittableIslandSubjects = new LinkedList<>();
     private final Collection<IslandObject> scheduledForRemoval = new LinkedList<>();
@@ -124,5 +125,22 @@ public class OhCoconutsGameManager {
         killCrab();
         scheduleForDeletion(c);
         gamePane.getChildren().remove(c.getImageView());
+    }
+
+    @Override
+    public void attach(Observer o){
+        observers.add(o);
+    }
+
+    @Override
+    public void detach(Observer o){
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyAllObservers(HitEvent event){
+        for(Observer observer : observers){
+            observer.update(event);
+        }
     }
 }
