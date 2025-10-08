@@ -11,31 +11,22 @@ import java.util.List;
 // This captures the Subject side of the Observer pattern; observers of the hit event will take action
 //   to process that event
 // This is a domain class; do not introduce JavaFX or other GUI components here
-public class HitEvent implements Subject {
-    private final List<Observer> observers = new ArrayList<>();
+public class HitEvent {
     private final IslandObject hitter;
     private final IslandObject target;
+    private final int eventType;
+    public static final int COCONUT_DESTROYED = 0;
+    public static final int COCONUT_HIT_BEACH = 1;
+    public static final int COCONUT_HIT_CRAB = 2;
 
-    public HitEvent(IslandObject hitter, IslandObject target){
+    public HitEvent(int eventType, IslandObject hitter, IslandObject target){
         this.hitter = hitter;
         this.target = target;
+        this.eventType = eventType;
     }
 
-    @Override
-    public void attach(Observer o) {
-        observers.add(o);
-    }
-
-    @Override
-    public void detach(Observer o) {
-        observers.remove(o);
-    }
-
-    @Override
-    public void notifyAllObservers(HitEvent e) {
-        for(Observer o : observers){
-            o.update(e);
-        }
+    public int getEventType(){
+        return eventType;
     }
 
     public IslandObject getHitter(){

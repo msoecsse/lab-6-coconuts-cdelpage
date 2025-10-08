@@ -20,4 +20,9 @@ public class LaserBeam extends IslandObject {
     public void step() {
         y -= 3;
     }
+
+    @Override
+    public boolean isLaser(){
+        return true;
+    }
 }

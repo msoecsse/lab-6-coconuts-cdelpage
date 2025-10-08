@@ -1,12 +1,15 @@
 package coconuts;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
 
 // JavaFX Controller class for the game - generally, JavaFX elements (other than Image) should be here
 public class GameController {
@@ -23,11 +26,16 @@ public class GameController {
     @FXML
     private Pane theBeach;
     private OhCoconutsGameManager theGame;
+    @FXML private Label scoreLabel;
+    @FXML private Label coconutsCaughtLabel;
+    @FXML private Label coconutsDestroyedLabel;
 
     @FXML
     public void initialize() {
         theGame = new OhCoconutsGameManager((int) (gamePane.getPrefHeight() - theBeach.getPrefHeight()),
                 (int) (gamePane.getPrefWidth()), gamePane);
+        Scoreboard scoreboard = new Scoreboard();
+        theGame.attach(scoreboard);
 
         gamePane.setFocusTraversable(true);
 

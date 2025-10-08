@@ -1,5 +1,7 @@
 package coconuts;
 
+import java.util.concurrent.TransferQueue;
+
 // the beach catches (hits) coconuts and increases the coconut score
 // This is a domain class; do not introduce JavaFX or other GUI components here
 public class Beach extends IslandObject {
@@ -11,4 +13,9 @@ public class Beach extends IslandObject {
 
     @Override
     public void step() { /* do nothing */ }
+
+    @Override
+    public boolean isBeach(){
+        return true;
+    }
 }

@@ -65,4 +65,10 @@ public abstract class IslandObject {
     }
 
     public abstract void step();
+
+    public boolean isCrab() { return false; }
+    public boolean isCoconut() { return false; }
+    public boolean isLaser() { return false; }
+    public boolean isBeach() { return false; }
+
 }

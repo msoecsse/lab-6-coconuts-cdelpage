@@ -91,7 +91,18 @@ public class OhCoconutsGameManager implements Subject {
         for (IslandObject thisObj : allObjects) {
             for (HittableIslandObject hittableObject : hittableIslandSubjects) {
                 if (thisObj.canHit(hittableObject) && thisObj.isTouching(hittableObject)) {
-                    // TODO: add code here to process the hit
+                    if (thisObj.isLaser() && hittableObject.isCoconut()) {
+                        notifyAllObservers(new HitEvent(HitEvent.COCONUT_DESTROYED, thisObj, hittableObject));
+                        coconutDestroyed();
+                    }
+                    else if (thisObj.isCoconut() && hittableObject.isBeach()) {
+                        notifyAllObservers(new HitEvent(HitEvent.COCONUT_HIT_BEACH, thisObj, hittableObject));
+                        coconutCaught((Coconut)thisObj);
+                    }
+                    else if (thisObj.isCoconut() && hittableObject.isCrab()) {
+                        notifyAllObservers(new HitEvent(HitEvent.COCONUT_HIT_CRAB, thisObj, hittableObject));
+                        coconutHitCrab((Coconut)thisObj);
+                    }
                     scheduledForRemoval.add(hittableObject);
                     gamePane.getChildren().remove(hittableObject.getImageView());
                 }

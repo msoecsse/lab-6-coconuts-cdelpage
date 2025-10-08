@@ -15,6 +15,11 @@ public class Coconut extends HittableIslandObject {
     @Override
     public void step() {
         y += 5;
+        if(x<0){
+            x = 0;
+        } else if (x > containingGame.getWidth() - WIDTH) {
+            x = containingGame.getWidth() - WIDTH;
+        }
         display();
         Beach beach = containingGame.getBeach();
         if(beach != null && this.isTouching(beach)){
@@ -28,6 +33,10 @@ public class Coconut extends HittableIslandObject {
     }
     @Override
     public boolean isFalling(){
+        return true;
+    }
+    @Override
+    public boolean isCoconut(){
         return true;
     }
 }
