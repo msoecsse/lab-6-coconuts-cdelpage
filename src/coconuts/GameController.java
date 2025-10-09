@@ -29,12 +29,13 @@ public class GameController {
     @FXML private Label scoreLabel;
     @FXML private Label coconutsCaughtLabel;
     @FXML private Label coconutsDestroyedLabel;
+    private Scoreboard scoreboard;
 
     @FXML
     public void initialize() {
         theGame = new OhCoconutsGameManager((int) (gamePane.getPrefHeight() - theBeach.getPrefHeight()),
                 (int) (gamePane.getPrefWidth()), gamePane);
-        Scoreboard scoreboard = new Scoreboard();
+        scoreboard = new Scoreboard(scoreLabel, coconutsCaughtLabel, coconutsDestroyedLabel);
         theGame.attach(scoreboard);
 
         gamePane.setFocusTraversable(true);
@@ -47,6 +48,7 @@ public class GameController {
         }));
         coconutTimeline.setCycleCount(Timeline.INDEFINITE);
     }
+
 
     @FXML
     public void onKeyPressed(KeyEvent keyEvent) {

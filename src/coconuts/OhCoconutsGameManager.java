@@ -94,17 +94,16 @@ public class OhCoconutsGameManager implements Subject {
                     if (thisObj.isLaser() && hittableObject.isCoconut()) {
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_DESTROYED, thisObj, hittableObject));
                         coconutDestroyed();
-                    }
-                    else if (thisObj.isCoconut() && hittableObject.isBeach()) {
+                    } else if (thisObj.isCoconut() && hittableObject.isBeach()) {
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_HIT_BEACH, thisObj, hittableObject));
-                        coconutCaught((Coconut)thisObj);
-                    }
-                    else if (thisObj.isCoconut() && hittableObject.isCrab()) {
+                        coconutCaught((Coconut) thisObj);
+                    } else if (thisObj.isCoconut() && hittableObject.isCrab()) {
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_HIT_CRAB, thisObj, hittableObject));
-                        coconutHitCrab((Coconut)thisObj);
+                        coconutHitCrab((Coconut) thisObj);
                     }
-                    scheduledForRemoval.add(hittableObject);
-                    gamePane.getChildren().remove(hittableObject.getImageView());
+
+                    scheduledForRemoval.add(thisObj);
+                    gamePane.getChildren().remove(thisObj.getImageView());
                 }
             }
         }
