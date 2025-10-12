@@ -76,7 +76,13 @@ public class OhCoconutsGameManager implements Subject {
     }
 
     public void killCrab() {
-        theCrab = null;
+        if (theCrab != null) {
+            if (theCrab.getImageView() != null) {
+                gamePane.getChildren().remove(theCrab.getImageView());
+            }
+            scheduleForDeletion(theCrab);
+            theCrab = null;
+        }
     }
 
     public void advanceOneTick() {
@@ -94,6 +100,11 @@ public class OhCoconutsGameManager implements Subject {
                     if (thisObj.isLaser() && hittableObject.isCoconut()) {
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_DESTROYED, thisObj, hittableObject));
                         coconutDestroyed();
+                        //actually remove the coconut and laser from screen once laser hits it
+                        scheduleForDeletion(hittableObject);
+                        scheduleForDeletion(thisObj);
+                        gamePane.getChildren().remove(thisObj.getImageView());
+                        gamePane.getChildren().remove(hittableObject.getImageView());
                     } else if (thisObj.isCoconut() && hittableObject.isBeach()) {
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_HIT_BEACH, thisObj, hittableObject));
                         coconutCaught((Coconut) thisObj);
@@ -102,8 +113,8 @@ public class OhCoconutsGameManager implements Subject {
                         coconutHitCrab((Coconut) thisObj);
                     }
 
-                    scheduledForRemoval.add(thisObj);
-                    gamePane.getChildren().remove(thisObj.getImageView());
+                    //scheduledForRemoval.add(thisObj);
+                    //gamePane.getChildren().remove(thisObj.getImageView());
                 }
             }
         }
@@ -112,6 +123,9 @@ public class OhCoconutsGameManager implements Subject {
             allObjects.remove(thisObj);
             if (thisObj instanceof HittableIslandObject) {
                 hittableIslandSubjects.remove((HittableIslandObject) thisObj);
+            }
+            if (thisObj.getImageView() != null) {
+                gamePane.getChildren().remove(thisObj.getImageView());
             }
         }
         scheduledForRemoval.clear();
@@ -152,5 +166,10 @@ public class OhCoconutsGameManager implements Subject {
         for(Observer observer : observers){
             observer.update(event);
         }
+    }
+
+    public void addObject(IslandObject object) {
+        registerObject(object);
+        gamePane.getChildren().add(object.getImageView());
     }
 }

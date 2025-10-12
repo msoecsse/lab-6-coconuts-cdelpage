@@ -32,7 +32,10 @@ public class Scoreboard extends VBox implements Observer {
         } else if (eventType == HitEvent.COCONUT_HIT_BEACH) {
             coconutsHitBeach++;
             Platform.runLater(() -> hitBeachLabel.setText("Coconuts Hit Beach: "+ coconutsHitBeach));
-        } // TODO ADD HITTING CRAB TO END GAME LATER
+        } else if (eventType == HitEvent.COCONUT_HIT_CRAB){
+            // TODO ADD HITTING CRAB TO END GAME LATER
+
+        }
         int totalScore = coconutsDestroyed * 10 - coconutsHitBeach * 2;
         Platform.runLater(() -> scoreLabel.setText("Score: "+totalScore));
     }
