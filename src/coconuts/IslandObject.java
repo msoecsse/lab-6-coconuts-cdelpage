@@ -23,7 +23,6 @@ public abstract class IslandObject {
         this.y = y;
         this.width = width;
         display();
-        //System.out.println(this + " left " + left() + " right " + right());
     }
 
     protected ImageView getImageView() {
@@ -43,14 +42,6 @@ public abstract class IslandObject {
 
     protected int hittable_height() {
         return 0;
-    }
-
-    public boolean isGroundObject() {
-        return false;
-    }
-
-    public boolean isFalling() {
-        return false;
     }
 
     public boolean canHit(HittableIslandObject other) {

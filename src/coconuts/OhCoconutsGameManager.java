@@ -11,23 +11,22 @@ import java.util.Objects;
 
 // This class manages the game, including tracking all island objects and detecting when they hit
 public class OhCoconutsGameManager implements Subject {
+    private static final int DROP_INTERVAL = 10;
+    private static final int MAX_TIME = 100;
     private final Collection<Observer> observers = new LinkedList<>();
     private final Collection<IslandObject> allObjects = new LinkedList<>();
     private final Collection<HittableIslandObject> hittableIslandSubjects = new LinkedList<>();
     private final Collection<IslandObject> scheduledForRemoval = new LinkedList<>();
-    private final int height, width;
-    private final int DROP_INTERVAL = 10;
-    private final int MAX_TIME = 100;
-    private Pane gamePane;
+    private final int width;
+    private final Pane gamePane;
     private Crab theCrab;
-    private Beach theBeach;
+    private final Beach theBeach;
     /* game play */
     private int coconutsInFlight = 0;
     private int gameTick = 0;
-    private final AudioClip bonkSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/bonksound.mp3")).toString());
+    private final AudioClip bonkSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/bonk.mp3")).toString());
 
     public OhCoconutsGameManager(int height, int width, Pane gamePane) {
-        this.height = height;
         this.width = width;
         this.gamePane = gamePane;
 
@@ -47,10 +46,6 @@ public class OhCoconutsGameManager implements Subject {
             HittableIslandObject asHittable = (HittableIslandObject) object;
             hittableIslandSubjects.add(asHittable);
         }
-    }
-
-    public int getHeight() {
-        return height;
     }
 
     public int getWidth() {
@@ -112,9 +107,6 @@ public class OhCoconutsGameManager implements Subject {
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_HIT_CRAB, thisObj, hittableObject));
                         coconutHitCrab((Coconut) thisObj);
                     }
-
-                    //scheduledForRemoval.add(thisObj);
-                    //gamePane.getChildren().remove(thisObj.getImageView());
                 }
             }
         }
@@ -140,7 +132,6 @@ public class OhCoconutsGameManager implements Subject {
     }
 
     public void coconutCaught(Coconut c){
-        // TODO add sound and update scoreboard later
         scheduleForDeletion(c);
         gamePane.getChildren().remove(c.getImageView());
     }

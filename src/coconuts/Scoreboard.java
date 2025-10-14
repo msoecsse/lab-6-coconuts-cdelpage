@@ -6,21 +6,14 @@ import javafx.scene.layout.VBox;
 public class Scoreboard extends VBox implements Observer {
     private int coconutsDestroyed = 0;
     private int coconutsHitBeach = 0;
-    private Label destroyedLabel;
-    private Label hitBeachLabel;
-    private Label scoreLabel;
+    private final Label destroyedLabel;
+    private final Label hitBeachLabel;
+    private final Label scoreLabel;
 
     public Scoreboard(Label scoreLabel, Label hitBeachLabel, Label destroyedLabel) {
         this.scoreLabel = scoreLabel;
         this.hitBeachLabel = hitBeachLabel;
         this.destroyedLabel = destroyedLabel;
-    }
-
-    public Scoreboard() {
-        this.scoreLabel = new Label("Score: 0");
-        this.hitBeachLabel = new Label("Coconuts Hit Beach: 0");
-        this.destroyedLabel = new Label("Coconuts Destroyed: 0");
-        this.getChildren().addAll(scoreLabel,destroyedLabel,hitBeachLabel);
     }
 
     @Override

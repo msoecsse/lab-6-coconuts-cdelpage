@@ -7,13 +7,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-
-import java.io.File;
 import java.util.Objects;
 
 
@@ -27,7 +22,6 @@ public class GameController {
     private Timeline coconutTimeline;
     private boolean started = false;
     private final AudioClip laserSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/laser-gun-81720.mp3")).toString());
-    private final AudioClip coconutBonk = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/bonksound.mp3")).toString());
 
 
     @FXML
@@ -38,13 +32,12 @@ public class GameController {
     @FXML private Label scoreLabel;
     @FXML private Label coconutsCaughtLabel;
     @FXML private Label coconutsDestroyedLabel;
-    private Scoreboard scoreboard;
 
     @FXML
     public void initialize() {
         theGame = new OhCoconutsGameManager((int) (gamePane.getPrefHeight() - theBeach.getPrefHeight()),
                 (int) (gamePane.getPrefWidth()), gamePane);
-        scoreboard = new Scoreboard(scoreLabel, coconutsCaughtLabel, coconutsDestroyedLabel);
+        Scoreboard scoreboard = new Scoreboard(scoreLabel, coconutsCaughtLabel, coconutsDestroyedLabel);
         theGame.attach(scoreboard);
 
         gamePane.setFocusTraversable(true);
@@ -52,8 +45,10 @@ public class GameController {
         coconutTimeline = new Timeline(new KeyFrame(Duration.millis(MILLISECONDS_PER_STEP), (_) -> {
             theGame.tryDropCoconut();
             theGame.advanceOneTick();
-            if (theGame.done())
+            if (theGame.done()) {
                 coconutTimeline.pause();
+                theGame.detach(Objects.requireNonNull(scoreboard));
+            }
         }));
         coconutTimeline.setCycleCount(Timeline.INDEFINITE);
     }
