@@ -26,6 +26,7 @@ public class OhCoconutsGameManager implements Subject {
     private int gameTick = 0;
     private final AudioClip bonkSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/bonk.mp3")).toString());
     private final AudioClip explosion = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/medium-explosion-40472.mp3")).toString());
+    private final DisappearManager disappearManager;
 
     public OhCoconutsGameManager(int height, int width, Pane gamePane) {
         this.width = width;
@@ -39,6 +40,9 @@ public class OhCoconutsGameManager implements Subject {
         registerObject(theBeach);
         if (theBeach.getImageView() != null)
             System.out.println("Unexpected image view for beach");
+
+        this.disappearManager = new DisappearManager();
+        this.disappearManager.DAttach(new ObservingDisplay(gamePane));
     }
 
     private void registerObject(IslandObject object) {
@@ -76,11 +80,10 @@ public class OhCoconutsGameManager implements Subject {
 
     public void killCrab() {
         if (theCrab != null) {
-            if (theCrab.getImageView() != null) {
-                gamePane.getChildren().remove(theCrab.getImageView());
-            }
+            disappearManager.DNotifyAllObservers(theCrab);
             scheduleForDeletion(theCrab);
             theCrab = null;
+            disappearManager.DDetach(new ObservingDisplay(gamePane));
         }
     }
 
@@ -137,20 +140,20 @@ public class OhCoconutsGameManager implements Subject {
 
     public void coconutCaught(Coconut c){
         scheduleForDeletion(c);
-        gamePane.getChildren().remove(c.getImageView());
+        disappearManager.DNotifyAllObservers(c);
     }
 
     public void laserHitCoconut(Coconut c, LaserBeam l){
         scheduleForDeletion(c);
         scheduleForDeletion(l);
-        gamePane.getChildren().remove(c.getImageView());
-        gamePane.getChildren().remove(l.getImageView());
+        disappearManager.DNotifyAllObservers(c);
+        disappearManager.DNotifyAllObservers(l);
     }
 
     public void coconutHitCrab(Coconut c){
         killCrab();
         scheduleForDeletion(c);
-        gamePane.getChildren().remove(c.getImageView());
+        disappearManager.DNotifyAllObservers(c);
     }
 
     @Override

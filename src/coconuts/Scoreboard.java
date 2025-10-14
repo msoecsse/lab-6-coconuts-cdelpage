@@ -9,7 +9,7 @@ public class Scoreboard extends VBox implements Observer {
     private final Label destroyedLabel;
     private final Label hitBeachLabel;
     private final Label scoreLabel;
-    boolean gameover = false;
+    boolean gameOver = false;
 
 
     public Scoreboard(Label scoreLabel, Label hitBeachLabel, Label destroyedLabel) {
@@ -28,10 +28,10 @@ public class Scoreboard extends VBox implements Observer {
             coconutsHitBeach++;
             Platform.runLater(() -> hitBeachLabel.setText("Coconuts Hit Beach: "+ coconutsHitBeach));
         } else if (eventType == HitEvent.COCONUT_HIT_CRAB){
-            gameover = true;
+            gameOver = true;
         }
         int totalScore = coconutsDestroyed * 10 - coconutsHitBeach * 2;
-        if(gameover){
+        if(gameOver){
             Platform.runLater(() -> scoreLabel.setText("Score: "+totalScore+" GAME OVER WOMP"));
         } else{
             Platform.runLater(() -> scoreLabel.setText("Score: "+totalScore));
