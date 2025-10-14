@@ -2,10 +2,10 @@ package coconuts;
 
 import javafx.scene.layout.Pane;
 
-public class ObservingDisplay implements DisappearObserver {
+public class ObservingDisappear implements DisappearObserver {
     private final Pane gamePane;
 
-    public ObservingDisplay(Pane gamePane) {
+    public ObservingDisappear(Pane gamePane) {
         this.gamePane = gamePane;
     }
 

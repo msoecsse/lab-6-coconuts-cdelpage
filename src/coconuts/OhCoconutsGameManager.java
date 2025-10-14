@@ -42,7 +42,7 @@ public class OhCoconutsGameManager implements Subject {
             System.out.println("Unexpected image view for beach");
 
         this.disappearManager = new DisappearManager();
-        this.disappearManager.DAttach(new ObservingDisplay(gamePane));
+        this.disappearManager.DAttach(new ObservingDisappear(gamePane));
     }
 
     private void registerObject(IslandObject object) {
@@ -83,7 +83,7 @@ public class OhCoconutsGameManager implements Subject {
             disappearManager.DNotifyAllObservers(theCrab);
             scheduleForDeletion(theCrab);
             theCrab = null;
-            disappearManager.DDetach(new ObservingDisplay(gamePane));
+            disappearManager.DDetach(new ObservingDisappear(gamePane));
         }
     }
 
