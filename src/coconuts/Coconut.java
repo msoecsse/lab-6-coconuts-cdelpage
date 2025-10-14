@@ -31,10 +31,7 @@ public class Coconut extends HittableIslandObject {
         }
 
     }
-    @Override
-    public boolean isFalling(){
-        return true;
-    }
+
     @Override
     public boolean isCoconut(){
         return true;

@@ -45,8 +45,10 @@ public class GameController {
         coconutTimeline = new Timeline(new KeyFrame(Duration.millis(MILLISECONDS_PER_STEP), (_) -> {
             theGame.tryDropCoconut();
             theGame.advanceOneTick();
-            if (theGame.done())
+            if (theGame.done()) {
                 coconutTimeline.pause();
+                theGame.detach(Objects.requireNonNull(scoreboard));
+            }
         }));
         coconutTimeline.setCycleCount(Timeline.INDEFINITE);
     }
