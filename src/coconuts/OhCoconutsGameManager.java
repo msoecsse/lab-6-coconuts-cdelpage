@@ -3,9 +3,11 @@ package coconuts;
 // https://stackoverflow.com/questions/42443148/how-to-correctly-separate-view-from-model-in-javafx
 
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Objects;
 
 // This class manages the game, including tracking all island objects and detecting when they hit
 public class OhCoconutsGameManager implements Subject {
@@ -22,6 +24,8 @@ public class OhCoconutsGameManager implements Subject {
     /* game play */
     private int coconutsInFlight = 0;
     private int gameTick = 0;
+    private final AudioClip bonksound = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/bonksound.mp3")).toString());
+
 
     public OhCoconutsGameManager(int height, int width, Pane gamePane) {
         this.height = height;
@@ -105,7 +109,7 @@ public class OhCoconutsGameManager implements Subject {
                         scheduleForDeletion(thisObj);
                         gamePane.getChildren().remove(thisObj.getImageView());
                         gamePane.getChildren().remove(hittableObject.getImageView());
-                    } else if (thisObj.isCoconut() && hittableObject.isBeach()) {
+                    } else if (thisObj.isCoconut() && hittableObject.isBeach()) { // TODO Is beach ever a hittable
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_HIT_BEACH, thisObj, hittableObject));
                         coconutCaught((Coconut) thisObj);
                     } else if (thisObj.isCoconut() && hittableObject.isCrab()) {
