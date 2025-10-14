@@ -33,4 +33,9 @@ public class Crab extends HittableIslandObject {
     public boolean isCrab(){
         return true;
     }
+
+    //used for laser
+    public int getEyeHeight() {
+        return y;
+    }
 }

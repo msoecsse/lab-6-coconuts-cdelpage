@@ -71,4 +71,13 @@ public abstract class IslandObject {
     public boolean isLaser() { return false; }
     public boolean isBeach() { return false; }
 
+    //used for laser
+    public int getCenterX() {
+        return x + width / 2;
+    }
+
+    //used for laser
+    public int getTopY() {
+        return y;
+    }
 }
