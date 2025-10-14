@@ -10,6 +10,11 @@ public class Beach extends IslandObject {
         // System.out.println("Beach at y = " + this.y);
     }
 
+//    @Override
+//    public boolean isHittable(){
+//        return true;
+//    }
+
     @Override
     public void step() { /* do nothing */ }
 

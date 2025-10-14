@@ -27,6 +27,8 @@ public class GameController {
     private Timeline coconutTimeline;
     private boolean started = false;
     private final AudioClip laserSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/laser-gun-81720.mp3")).toString());
+    private final AudioClip coconutBonk = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/bonksound.mp3")).toString());
+
 
     @FXML
     private Pane gamePane;
