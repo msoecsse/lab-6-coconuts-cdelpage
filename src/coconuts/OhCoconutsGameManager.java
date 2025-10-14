@@ -100,11 +100,7 @@ public class OhCoconutsGameManager implements Subject {
                     if (thisObj.isLaser() && hittableObject.isCoconut()) {
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_DESTROYED, thisObj, hittableObject));
                         coconutDestroyed();
-                        //actually remove the coconut and laser from screen once laser hits it
-                        scheduleForDeletion(hittableObject);
-                        scheduleForDeletion(thisObj);
-                        gamePane.getChildren().remove(thisObj.getImageView());
-                        gamePane.getChildren().remove(hittableObject.getImageView());
+                        laserHitCoconut((Coconut) hittableObject, (LaserBeam) thisObj);
                     } else if (thisObj.isCoconut() && hittableObject.isBeach()) {
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_HIT_BEACH, thisObj, hittableObject));
                         coconutCaught((Coconut) thisObj);
@@ -143,6 +139,13 @@ public class OhCoconutsGameManager implements Subject {
         // TODO add sound and update scoreboard later
         scheduleForDeletion(c);
         gamePane.getChildren().remove(c.getImageView());
+    }
+
+    public void laserHitCoconut(Coconut c, LaserBeam l){
+        scheduleForDeletion(c);
+        scheduleForDeletion(l);
+        gamePane.getChildren().remove(c.getImageView());
+        gamePane.getChildren().remove(l.getImageView());
     }
 
     public void coconutHitCrab(Coconut c){

@@ -57,6 +57,10 @@ public abstract class IslandObject {
         return false;
     }
 
+    public boolean canHit(HittableIslandObject other) {
+        return true;
+    }
+
     public boolean isTouching(IslandObject other) {
         return (x < other.x + other.width &&
                 x + width > other.x &&
@@ -74,10 +78,5 @@ public abstract class IslandObject {
     //used for laser
     public int getCenterX() {
         return x + width / 2;
-    }
-
-    //used for laser
-    public int getTopY() {
-        return y;
     }
 }
