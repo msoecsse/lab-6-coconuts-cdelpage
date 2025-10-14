@@ -53,7 +53,6 @@ public class GameController {
         coconutTimeline.setCycleCount(Timeline.INDEFINITE);
     }
 
-
     @FXML
     public void onKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.RIGHT && !theGame.done()) {
