@@ -27,7 +27,6 @@ public class Scoreboard extends VBox implements Observer {
             coconutsHitBeach++;
             Platform.runLater(() -> hitBeachLabel.setText("Coconuts Hit Beach: "+ coconutsHitBeach));
         } else if (eventType == HitEvent.COCONUT_HIT_CRAB){
-            // TODO ADD HITTING CRAB TO END GAME LATER
             gameover = true;
         }
         int totalScore = coconutsDestroyed * 10 - coconutsHitBeach * 2;

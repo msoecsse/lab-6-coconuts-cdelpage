@@ -25,6 +25,7 @@ public class OhCoconutsGameManager implements Subject {
     private int coconutsInFlight = 0;
     private int gameTick = 0;
     private final AudioClip bonkSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/bonk.mp3")).toString());
+    private final AudioClip explosion = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/medium-explosion-40472.mp3")).toString());
 
     public OhCoconutsGameManager(int height, int width, Pane gamePane) {
         this.width = width;
@@ -96,10 +97,13 @@ public class OhCoconutsGameManager implements Subject {
             for (HittableIslandObject hittableObject : hittableIslandSubjects) {
                 if (thisObj.canHit(hittableObject) && thisObj.isTouching(hittableObject)) {
                     if (thisObj.isLaser() && hittableObject.isCoconut()) {
+                        explosion.setVolume(1);
+                        explosion.play();
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_DESTROYED, thisObj, hittableObject));
                         coconutDestroyed();
                         laserHitCoconut((Coconut) hittableObject, (LaserBeam) thisObj);
                     } else if (thisObj.isCoconut() && hittableObject.isBeach()) {
+                        explosion.setVolume(.8);
                         bonkSound.play();
                         notifyAllObservers(new HitEvent(HitEvent.COCONUT_HIT_BEACH, thisObj, hittableObject));
                         coconutCaught((Coconut) thisObj);

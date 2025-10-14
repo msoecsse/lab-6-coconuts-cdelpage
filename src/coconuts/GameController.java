@@ -70,6 +70,7 @@ public class GameController {
                 int crabCenterX = theGame.getCrab().getCenterX();
                 LaserBeam laser = new LaserBeam(theGame, eyeHeight, crabCenterX - 1);
                 theGame.addObject(laser);
+                laserSound.setVolume(.4);
                 laserSound.play();
             }
         }else if (keyEvent.getCode() == KeyCode.SPACE) {
