@@ -7,13 +7,7 @@ public class Beach extends HittableIslandObject {
 
     public Beach(OhCoconutsGameManager game, int skyHeight, int islandWidth) {
         super(game, 0, skyHeight, islandWidth, null);
-        // System.out.println("Beach at y = " + this.y);
     }
-
-//    @Override
-//    public boolean isHittable(){
-//        return true;
-//    }
 
     @Override
     public void step() { /* do nothing */ }

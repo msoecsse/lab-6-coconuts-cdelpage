@@ -38,7 +38,7 @@ public abstract class IslandObject {
 
     public boolean isHittable() {
         return false;
-    } // SET TO TRUE???
+    }
 
     protected int hittable_height() {
         return 0;
