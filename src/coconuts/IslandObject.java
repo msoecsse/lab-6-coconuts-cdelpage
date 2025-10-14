@@ -53,10 +53,6 @@ public abstract class IslandObject {
         return false;
     }
 
-    public boolean canHit(IslandObject other) {
-        return false;
-    }
-
     public boolean canHit(HittableIslandObject other) {
         return true;
     }
